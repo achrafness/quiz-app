@@ -31,7 +31,7 @@ const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 // routers
 const questionRouter = require("./routes/questionRoutes");
-const resultRouter = require("./routes/resultRoutes");
+const resultRouter = require("./routes/ResultRoutes");
 // dev
 app.use(express.static(path.join(__dirname, "/client/dist")));
 app.use(morgan("tiny"));

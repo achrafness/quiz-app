@@ -7,6 +7,8 @@ const Scoreboard = () => {
   
   useEffect(() => {
     socketRef.current = io("https://nexus-quiz.vercel.app/");
+    // socketRef.current = io("http://localhost:3000/");
+
     socketRef.current.on("connect", () => {
       console.log("Socket connected: ", socketRef.current.id);
     });

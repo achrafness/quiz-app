@@ -1,6 +1,6 @@
 // src/store/useQuizStore.js
 import { create } from "zustand";
-import axios  from "axios";
+import axiosBaseURL from "../axiosConfig";
 const useQuizStore = create((set) => ({
   questions: [],
   trace: 0,
@@ -8,7 +8,9 @@ const useQuizStore = create((set) => ({
 
   fetchQuestions: async () => {
     try {
-      const response = await axios.get("https://nexus-quiz.vercel.app/api/v1/question");
+      const response = await axiosBaseURL.get(
+        "/question"
+      );
       set({ questions: response.data.questions });
     } catch (error) {
       console.error("Error fetching questions:", error);

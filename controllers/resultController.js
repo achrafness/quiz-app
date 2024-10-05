@@ -18,9 +18,8 @@ const createResult = async (req, res) => {
   });
 
   const result = await Result.create({ username, score });
-  const results = await Result.find({}).sort({ score: -1 });
+  const results = await Result.find({}).sort({ score: -1, createdAt: -1 });
 
-  // Emit updated scores using Socket.IO instance from the app
   const io = req.app.get("io");
   io.emit("scoreboardUpdate", results);
 
@@ -28,7 +27,7 @@ const createResult = async (req, res) => {
 };
 
 const getResults = async (req, res) => {
-  const results = await Result.find({}).sort({ score: -1 });
+  const results = await Result.find({}).sort({ score: -1, createdAt: -1 });
   res.status(StatusCodes.OK).json({ results });
 };
 

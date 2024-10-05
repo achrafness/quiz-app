@@ -88,7 +88,7 @@ const Home = () => {
             <div className="start text-center mt-4">
               <button
                 className="btn inline-block bg-[#72EA88] hover:bg-[#5fcc6a] text-[#2B2B2B] font-semibold px-6 py-2 rounded-md"
-                onClick={handleSubmit}
+                onClick={(e)=>handleSubmit(e)}
               >
                 Start Quiz
               </button>

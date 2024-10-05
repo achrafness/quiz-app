@@ -6,7 +6,7 @@
   "scripts": {
     "setup-project": "npm i && cd client && npm i",
     "setup-production-app": "npm i && cd client && npm i && npm run build ",
-    "server": "nodemon app",
+    "server": "node app",
     "client": "cd client && npm run dev",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
@@ -32,6 +32,6 @@
     "xss-clean": "^0.1.4"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "nodemon": "^3.1.7"
   }
 }

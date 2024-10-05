@@ -31,17 +31,17 @@ const Home = () => {
       const timer = response.data.timer;
 
       if (timer) {
-        const currentTime = new Date().getTime(); // Get current time
-        const endTime = new Date(timer.end).getTime(); // Convert timer end time to timestamp
+        const currentTime = new Date().getTime(); 
+        const endTime = new Date(timer.end).getTime(); 
 
         if (currentTime < endTime) {
-          setHasTimer(true); // Timer is still active
+          setHasTimer(true); 
         } else {
-          setHasTimer(false); // Timer has expired
+          setHasTimer(false); 
           console.log("Timer has expired.");
         }
       } else {
-        setHasTimer(false); // No timer found
+        setHasTimer(false); 
       }
     } catch (error) {
       console.error("Error fetching timer:", error);

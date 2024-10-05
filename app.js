@@ -9,7 +9,7 @@ const http = require("http");
 const socketio = require("socket.io");
 
 const originUrl = "https://nexus-quiz.onrender.com/";
-// const originUrl = "http://localhost:3000/";
+// const originUrl = "http://localhost:5173";
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
@@ -32,6 +32,8 @@ const errorHandlerMiddleware = require("./middleware/error-handler");
 // routers
 const questionRouter = require("./routes/questionRoutes");
 const resultRouter = require("./routes/ResultRoutes");
+const authRouter = require("./routes/authRoutes");
+const timerRouter = require("./routes/timerRoutes");
 // dev
 app.use(express.static(path.join(__dirname, "/client/dist")));
 app.use(morgan("tiny"));
@@ -40,12 +42,15 @@ app.use(cookieParser(process.env.COOKIES_SECRET));
 app.use(
   cors({
     origin: originUrl,
+    credentials: true,
   })
 );
 
 // app.use /api routes
 app.use("/api/v1/question", questionRouter);
 app.use("/api/v1/result", resultRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/timer", timerRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist", "index.html"));

@@ -1,10 +1,11 @@
 const Result = require("../models/Result");
 const Question = require("../models/Question");
+const { StatusCodes } = require("http-status-codes");
 
 const createResult = async (req, res) => {
   const { username, answers } = req.body;
   if (!username || !answers) {
-    return res.status(400).send("Please provide username and answers");
+    return res.status(StatusCodes.BAD_REQUEST).send("Please provide username and answers");
   }
 
   const questions = await Question.find({});
@@ -23,17 +24,62 @@ const createResult = async (req, res) => {
   const io = req.app.get("io");
   io.emit("scoreboardUpdate", results);
 
-  res.status(201).json({ result });
+  res.status(StatusCodes.CREATED).json({ result });
 };
 
 
-// Get all results (for the scoreboard page)
 const getResults = async (req, res) => {
   const results = await Result.find({}).sort({ score: -1 });
-  res.status(200).json({ results });
+  res.status(StatusCodes.OK).json({ results });
+};
+
+const getStatistics = async (req, res) => {
+  try {
+    const results = await Result.find({});
+
+    if (results.length === 0) {
+      return res.status(StatusCodes.OK).json({
+        totalParticipants: 0,
+        averageScore: 0,
+        highestScore: 0,
+        lowestScore: 0,
+        scoreDistribution: {},
+      });
+    }
+
+    const totalParticipants = results.length;
+    const totalScore = results.reduce((acc, result) => acc + result.score, 0);
+    const averageScore = (totalScore / totalParticipants).toFixed(2); // Calculate average score
+    const highestScore = Math.max(...results.map((result) => result.score)); // Get highest score
+    const lowestScore = Math.min(...results.map((result) => result.score)); // Get lowest score
+
+    // Score distribution (example: ranges 0-3, 4-6, 7-10)
+    const scoreDistribution = {
+      "0-3": results.filter((result) => result.score >= 0 && result.score <= 3)
+        .length,
+      "4-6": results.filter((result) => result.score >= 4 && result.score <= 6)
+        .length,
+      "7-10": results.filter(
+        (result) => result.score >= 7 && result.score <= 10
+      ).length,
+    };
+
+    res.status(StatusCodes.OK).json({
+      totalParticipants,
+      averageScore,
+      highestScore,
+      lowestScore,
+      scoreDistribution,
+    });
+  } catch (error) {
+    res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .send("Error fetching statistics");
+  }
 };
 
 module.exports = {
   createResult,
   getResults,
+  getStatistics,  
 };

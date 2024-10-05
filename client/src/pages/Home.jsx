@@ -98,7 +98,7 @@ const Home = () => {
       ) : (
         <div className="flex flex-col items-center justify-center h-full">
           <FaLock className="text-6xl text-red-500 mb-4" /> 
-          <p className="text-lg">No active timer. Please create a timer to start the quiz.</p>
+          <p className="text-lg">Please Wait for timer to Start.</p>
         </div>
       )}
     </div>

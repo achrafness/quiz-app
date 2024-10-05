@@ -24,6 +24,10 @@ const path = require("path");
 const morgan = require("morgan");
 // Security
 const cors = require("cors");
+const rateLimiter = require("express-rate-limit")
+const helmet = require("helmet")
+const xss = require("xss-clean")
+const mongoSanitize = require("express-mongo-sanitize")
 // DB
 const connectDB = require("./db/connect");
 // middleware
@@ -39,6 +43,12 @@ app.use(express.static(path.join(__dirname, "/client/dist")));
 app.use(morgan("tiny"));
 app.use(express.json()); // have acces to json data in req.body
 app.use(cookieParser(process.env.COOKIES_SECRET));
+app.use(rateLimiter({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100
+}))
+app.use(mongoSanitize());
+app.use(xss());
 app.use(
   cors({
     origin: originUrl,

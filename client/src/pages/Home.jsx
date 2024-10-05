@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import {useNavigate } from "react-router-dom";
 import useResultStore from "../store/useResultStore";
-import { FaLock } from 'react-icons/fa'; // Importing a locked icon from React Icons
+import { FaLock } from 'react-icons/fa'; 
 import axiosBaseURL from '../axiosConfig';
+import BG from "/BG.png"
+
 const Home = () => {
+  const [hasTimer, setHasTimer] = useState(false); 
+  const [loading, setLoading] = useState(true); 
   const { username, setUsername } = useResultStore();
   const navigate = useNavigate();
-  const [hasTimer, setHasTimer] = useState(false); // State to check if the timer exists
-  const [loading, setLoading] = useState(true); // Loading state
 
   const handleInputChange = (e) => {
     setUsername(e.target.value);
@@ -23,28 +25,34 @@ const Home = () => {
     navigate('/quiz');
   };
 
+  const fetchTimer = async () => {
+    try {
+      const response = await axiosBaseURL.get('/timer'); 
+      setHasTimer(!!response.data.timer); 
+    } catch (error) {
+      console.error("Error fetching timer:", error);
+      setHasTimer(false); 
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchTimer = async () => {
-      try {
-        const response = await axiosBaseURL.get('/timer'); 
-        setHasTimer(!!response.data.timer); 
-      } catch (error) {
-        console.error("Error fetching timer:", error);
-        setHasTimer(false); 
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchTimer();
   }, []);
 
   return (
-    <div className="container mx-auto p-6 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
+    <div 
+    style={{
+        backgroundImage: `url(${BG})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    className="container mx-auto p-6 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold text-center mb-6 text-[#72EA88]">Quiz Application</h1>
 
       {loading ? (
-        <p>Loading timer status...</p> // Loading message
+        <p>Loading timer status...</p> 
       ) : hasTimer ? (
         <>
           <ol className="list-decimal list-inside space-y-2 text-lg">
@@ -74,7 +82,7 @@ const Home = () => {
         </>
       ) : (
         <div className="flex flex-col items-center justify-center h-full">
-          <FaLock className="text-6xl text-red-500 mb-4" /> {/* Display the locked icon */}
+          <FaLock className="text-6xl text-red-500 mb-4" /> 
           <p className="text-lg">No active timer. Please create a timer to start the quiz.</p>
         </div>
       )}

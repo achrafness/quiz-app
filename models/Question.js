@@ -1,4 +1,3 @@
-// add model for questions in mongoDB with qsm 
 const mongoose = require('mongoose');
 const QuestionSchema = new mongoose.Schema({
     question: {

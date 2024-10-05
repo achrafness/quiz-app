@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useUserStore from '../store/useUserStore'; 
 import axiosBaseURL from '../axiosConfig';
@@ -10,7 +10,6 @@ const Login = () => {
     const { setUsername, authenticate } = useUserStore();
     const navigate = useNavigate();
 
-    // Handle login form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
 

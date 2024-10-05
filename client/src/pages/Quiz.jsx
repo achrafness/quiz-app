@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Questions from "../component/Questions";
 import { Navigate } from 'react-router-dom';
 import useQuizStore from '../store/useQuizStore';
 import useResultStore from '../store/useResultStore'; 
-
+import BG from "/BG.png"
 export default function Quiz() {
   const [check, setChecked] = useState(undefined);
   const { questions, trace, answers, fetchQuestions, moveNext, movePrev, pushAnswer } = useQuizStore();
@@ -48,7 +48,14 @@ export default function Quiz() {
   }
 
   return (
-    <div className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
+    <div 
+      style={{
+        backgroundImage: `url(${BG})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-5xl font-bold text-center mb-8 text-[#72EA88] drop-shadow-lg">
         Quiz Application
       </h1>

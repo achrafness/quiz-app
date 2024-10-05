@@ -9,7 +9,7 @@ import Statistics from './pages/Statistics';
 import Questions from './pages/Questions';
 import Timer from './pages/Timer';
 import 'react-toastify/dist/ReactToastify.css';
-import PrivateRoute from './component/PrivateRoute'; // Import the PrivateRoute
+import PrivateRoute from './component/PrivateRoute';
 
 const router = createBrowserRouter([
   {
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: 'statistics', 
+        path: 'statistics',
         element: (
           <PrivateRoute>
             <Statistics />
@@ -49,7 +49,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'questions', 
+        path: 'questions',
         element: (
           <PrivateRoute>
             <Questions />
@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'timer', 
+        path: 'timer',
         element: (
           <PrivateRoute>
             <Timer />

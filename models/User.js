@@ -1,4 +1,3 @@
-// create users with 2 fields: username and password
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 

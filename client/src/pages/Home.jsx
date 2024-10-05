@@ -27,15 +27,30 @@ const Home = () => {
 
   const fetchTimer = async () => {
     try {
-      const response = await axiosBaseURL.get('/timer'); 
-      setHasTimer(!!response.data.timer); 
+      const response = await axiosBaseURL.get('/timer');
+      const timer = response.data.timer;
+
+      if (timer) {
+        const currentTime = new Date().getTime(); // Get current time
+        const endTime = new Date(timer.end).getTime(); // Convert timer end time to timestamp
+
+        if (currentTime < endTime) {
+          setHasTimer(true); // Timer is still active
+        } else {
+          setHasTimer(false); // Timer has expired
+          console.log("Timer has expired.");
+        }
+      } else {
+        setHasTimer(false); // No timer found
+      }
     } catch (error) {
       console.error("Error fetching timer:", error);
-      setHasTimer(false); 
+      setHasTimer(false); // Assume no timer exists in case of error
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchTimer();
   }, []);

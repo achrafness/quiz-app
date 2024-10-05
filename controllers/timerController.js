@@ -14,6 +14,11 @@ const createTimer = async (req, res) => {
 
 const getTimer = async (req, res) => {
     const timer = await Timer.findOne({});
+    // check if timer expired delted 
+    if (timer && new Date(timer.end).getTime() < new Date().getTime()) {
+        await Timer.findOneAndDelete({});
+        return res.status(StatusCodes.OK).json({ timer: null });
+    }
     res.status(StatusCodes.OK).json({ timer });
 }
 

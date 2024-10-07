@@ -33,7 +33,7 @@ const useResultStore = create((set, get) => ({
       toast.success("Result submitted successfully");
       console.log("Result submitted successfully:", response.data.result);
     } catch (error) {
-      toast.error("Error submitting result (time is out)");
+      toast.error("Error submitting result because of time out");
       console.error("Error submitting result", error);
     }
   },

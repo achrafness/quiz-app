@@ -11,8 +11,7 @@ const createResult = async (req, res) => {
   // check if the timer has expired with 10 seconde delay
   const timer = await Timer.findOne({});
   console.log("timer", timer);
-  if (!timer) {
-    console.log("Time is up!");
+  if (!timer || new Date(timer.end) < new Date()) {
     throw new CustomError("Time is up!", StatusCodes.BAD_REQUEST);
     return;
   }

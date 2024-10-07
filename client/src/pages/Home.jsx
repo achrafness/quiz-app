@@ -3,7 +3,6 @@ import {useNavigate } from "react-router-dom";
 import useResultStore from "../store/useResultStore";
 import { FaLock } from 'react-icons/fa'; 
 import axiosBaseURL from '../axiosConfig';
-import BG from "/BG.png"
 
 const Home = () => {
   const [hasTimer, setHasTimer] = useState(false); 
@@ -15,9 +14,7 @@ const Home = () => {
     setUsername(e.target.value);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (!username) {
       alert("Please enter a username.");
       return;
@@ -57,13 +54,7 @@ const Home = () => {
 
   return (
     <div 
-    style={{
-        backgroundImage: `url(${BG})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    className="container mx-auto p-6 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
+      className="container bg-green mx-auto p-6 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-4xl font-bold text-center mb-6 text-[#72EA88]">Quiz Application</h1>
 
       {loading ? (
@@ -88,7 +79,7 @@ const Home = () => {
             <div className="start text-center mt-4">
               <button
                 className="btn inline-block bg-[#72EA88] hover:bg-[#5fcc6a] text-[#2B2B2B] font-semibold px-6 py-2 rounded-md"
-                onClick={(e)=>handleSubmit(e)}
+                onClick={handleSubmit}
               >
                 Start Quiz
               </button>

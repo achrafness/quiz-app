@@ -10,7 +10,7 @@ const Scoreboard = () => {
 
   useEffect(() => {
     socketRef.current = io("https://nexus-quiz.onrender.com/");
-    // socketRef.current = io("http://localho st:3000/");
+    // socketRef.current = io("http://localhost:3000/");
 
     socketRef.current.on("connect", () => {
       console.log("Socket connected: ", socketRef.current.id);
@@ -83,7 +83,7 @@ const Scoreboard = () => {
   };
 
   return (
-    <div className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
+    <div className="container bg-green mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
       <h1 className="text-5xl font-bold text-center mb-8 text-[#72EA88] drop-shadow-lg">
         Scoreboard
       </h1>

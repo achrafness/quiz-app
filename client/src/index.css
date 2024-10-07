@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.bg-green {
+    background-image: url("./BG.png");
+    background-size : cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

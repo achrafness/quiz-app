@@ -10,7 +10,10 @@ const Statistics = () => {
     const fetchStatistics = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/result/statistics');
+            const response = await axios.get('http://localhost:3000/api/v1/result/statistics',{
+                withCredentials:true
+            });
+            console.log(response.data);
             setStatistics(()=>response.data);
         } catch (error) {
             console.error('Error fetching statistics:', error);

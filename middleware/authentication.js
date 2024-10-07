@@ -1,8 +1,8 @@
 const CustomError = require("../errors");
 const { isTokenValid } = require("../utils");
 const { attachCookiesToResponse } = require("../utils");
-const Token = require("../models/Token");
-const authenticateUser = async (req, res, next) => {
+const Token = require("../models/TokenUser");
+const authenticate = async (req, res, next) => {
   const { refreshToken, accessToken } = req.signedCookies;
   try {
     if (accessToken) {
@@ -28,12 +28,5 @@ const authenticateUser = async (req, res, next) => {
     console.log(error);
   }
 };
-const authorizePermissions = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      throw new CustomError.UnauthorizedError("Unauthorized to access");
-    }
-    next();
-  };
-};
-module.exports = { authenticateUser, authorizePermissions };
+
+module.exports = { authenticate };

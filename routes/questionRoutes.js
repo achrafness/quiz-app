@@ -7,9 +7,13 @@ const {
   patchQuestion,
   deleteQuestion,
 } = require("../controllers/questionController");
-
-router.route("/").get(getAllQuestions).post(postQuestion);
-router.route("/:id").get(getQuestion).patch(patchQuestion).delete(deleteQuestion);
+const { authenticate } = require("../middleware/authentication");
+router.route("/").get(getAllQuestions).post(authenticate,postQuestion);
+router
+  .route("/:id")
+  .get(getQuestion)
+  .patch(authenticate, patchQuestion)
+  .delete(authenticate,deleteQuestion);
 
 
 

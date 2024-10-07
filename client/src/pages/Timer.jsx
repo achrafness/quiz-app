@@ -13,7 +13,9 @@ const Timer = () => {
         // Fetch the existing timer on component mount
         const fetchTimer = async () => {
             try {
-                const response = await axiosBaseURL.get("/timer");
+                const response = await axiosBaseURL.get("/timer",{
+                    withCredentials:true
+                });
                 if (response.data.timer) {
                     const { end } = response.data.timer;
                     const currentTime = new Date().getTime();
@@ -56,7 +58,10 @@ const Timer = () => {
             const response = await axiosBaseURL.post("/timer", {
                 start: new Date(),
                 end: new Date(new Date().getTime() + totalSeconds * 1000), // Set end time based on input
-            });
+            },{
+                withCredentials:true
+            }
+            );
             setTimer(totalSeconds, response.data.timer._id);
             toast.success("Timer started!");
         } catch (error) {
@@ -67,7 +72,9 @@ const Timer = () => {
 
     const deleteTimer = async () => {
         try {
-            await axiosBaseURL.delete(`/timer`);
+            await axiosBaseURL.delete(`/timer`, {
+                withCredentials: true
+            });
             clearTimer();
             toast.success("Timer stopped and deleted.");
         } catch (error) {

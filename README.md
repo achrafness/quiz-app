@@ -72,6 +72,7 @@ The system follows a client-server architecture with the **React** frontend, **N
 - POST /result: Submit quiz answers and generate a result.
 - GET /result: Get all quiz results (Admin only).
 - GET /result/{userId}: Get a user's quiz result history.
+- GET /result/statistics Get all statistics.
 
 
 **Timer Endpoints:**

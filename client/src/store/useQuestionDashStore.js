@@ -18,7 +18,9 @@ const useQuestionDashStore = create((set) => ({
     try {
       const response = await axiosBaseURL.post(
         "/question",
-        newQuestion
+        newQuestion,{
+          withCredentials:true
+        }
       );
       set((state) => ({
         questions: [...state.questions, response.data.questionCreated],
@@ -30,7 +32,9 @@ const useQuestionDashStore = create((set) => ({
   },
   deleteQuestion: async (id) => {
     try {
-      await axiosBaseURL.delete(`/question/${id}`);
+      await axiosBaseURL.delete(`/question/${id}`,{
+        withCredentials:true
+      });
       set((state) => ({
         questions: state.questions.filter((question) => question._id !== id),
       }));
@@ -44,7 +48,9 @@ const useQuestionDashStore = create((set) => ({
     try {
       const response = await axiosBaseURL.patch(
         `/question/${id}`,
-        updatedQuestion
+        updatedQuestion,{
+          withCredentials:true
+        }
       );
       set((state) => ({
         questions: state.questions.map((question) =>

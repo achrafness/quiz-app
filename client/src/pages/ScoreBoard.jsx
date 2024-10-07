@@ -9,8 +9,8 @@ const Scoreboard = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io("https://nexus-quiz.onrender.com/");
-    // socketRef.current = io("http://localhost:3000/");
+    // socketRef.current = io("https://nexus-quiz.onrender.com/");
+    socketRef.current = io("http://localhost:3000/");
 
     socketRef.current.on("connect", () => {
       console.log("Socket connected: ", socketRef.current.id);

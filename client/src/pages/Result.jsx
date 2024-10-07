@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useResultStore from '../store/useResultStore';
+import { ToastContainer, toast } from "react-toastify";
 
 const Result = () => {
   const { score, username, answers, submitResult } = useResultStore();
@@ -14,6 +15,7 @@ const Result = () => {
 
   return (
     <div className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
+      <ToastContainer />
       <h1 className="text-5xl font-bold text-center mb-8 text-[#72EA88] drop-shadow-lg">
         Quiz Result
       </h1>

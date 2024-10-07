@@ -2,33 +2,39 @@ import { useEffect, useState } from 'react';
 import Questions from "../component/Questions";
 import { Navigate } from 'react-router-dom';
 import useQuizStore from '../store/useQuizStore';
-import useResultStore from '../store/useResultStore'; 
+import useResultStore from '../store/useResultStore';
+import { ToastContainer, toast } from 'react-toastify';
 import BG from "/BG.png"
+
 export default function Quiz() {
   const [check, setChecked] = useState(undefined);
   const { questions, trace, answers, fetchQuestions, moveNext, movePrev, pushAnswer } = useQuizStore();
-  const { submitResult, setAnswer } = useResultStore(); 
+  const { submitResult, setAnswer } = useResultStore();
 
   useEffect(() => {
     fetchQuestions();
   }, [fetchQuestions]);
 
   const onNext = () => {
-    if (trace < questions.length - 1) {
-      moveNext(); 
+    if (check === undefined) {
+      toast.warn('Please select an answer before proceeding!');
+      return;
+    }
 
-      if (check !== undefined) {
-        pushAnswer(check); 
-        setAnswer(questions[trace]._id, check);
-      }
+    if (trace < questions.length - 1) {
+      moveNext();
+      pushAnswer(check);
+      setAnswer(questions[trace]._id, check);
+      setChecked(undefined); // Reset check state
     } else {
+      // On the last question, push the final answer
       if (check !== undefined && answers.length === trace) {
         pushAnswer(check);
         setAnswer(questions[trace]._id, check);
       }
 
-      submitResult();
-
+      // Submit the result
+      submitResult()
       console.log('Quiz completed! Redirecting to result...');
     }
   };
@@ -48,17 +54,20 @@ export default function Quiz() {
   }
 
   return (
-    <div 
+    <div
       style={{
         backgroundImage: `url(${BG})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
       }}
-    className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
+      className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center"
+    >
       <h1 className="text-5xl font-bold text-center mb-8 text-[#72EA88] drop-shadow-lg">
         Quiz Application
       </h1>
+
+      <ToastContainer />
 
       {questions.length > 0 && (
         <div className="w-full max-w-3xl bg-[#333] p-6 rounded-lg shadow-lg">

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import axiosBaseURL from "../axiosConfig";
+import { ToastContainer, toast } from "react-toastify";
 
 
 const useResultStore = create((set, get) => ({
@@ -19,7 +20,7 @@ const useResultStore = create((set, get) => ({
 
   submitResult: async () => {
     try {
-      const { username, answers } = get(); // Get the current state
+      const { username, answers } = get(); 
       const response = await axiosBaseURL.post(
         "/result",
         {
@@ -29,8 +30,10 @@ const useResultStore = create((set, get) => ({
       );
 
       set({ score: response.data.result.score });
+      toast.success("Result submitted successfully");
       console.log("Result submitted successfully:", response.data.result);
     } catch (error) {
+      toast.error("Error submitting result (time is out)");
       console.error("Error submitting result", error);
     }
   },

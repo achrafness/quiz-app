@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useUserStore from '../store/useUserStore'; 
 import axiosBaseURL from '../axiosConfig';
 
-const Login = () => {
+const Register = () => {
     const [inputUsername, setInputUsername] = useState('');
     const [inputPassword, setInputPassword] = useState('');
     const [loading, setLoading] = useState(false);
@@ -41,7 +41,7 @@ const Login = () => {
     return (
         <div className="container mx-auto p-8 bg-[#2B2B2B] text-white min-h-screen flex flex-col items-center justify-center">
             <h1 className="text-5xl font-bold text-center mb-8 text-[#72EA88] drop-shadow-lg">
-                Login
+                Register
             </h1>
             <div className="bg-[#333] p-6 rounded-lg shadow-lg w-full max-w-md">
                 <form>
@@ -77,7 +77,7 @@ const Login = () => {
                         className="w-full bg-[#72EA88] hover:bg-[#66d07c] text-[#2B2B2B] font-semibold px-6 py-3 rounded-md text-lg transition duration-300 ease-in-out"
                         onClick={handleSubmit}
                     >
-                        Login{loading && '...'}
+                        Register{loading && '...'}
                     </button>
                 </form>
             </div>
@@ -85,4 +85,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Register;

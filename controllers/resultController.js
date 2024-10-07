@@ -1,13 +1,21 @@
 const Result = require("../models/Result");
 const Question = require("../models/Question");
 const { StatusCodes } = require("http-status-codes");
-
+const Timer = require("../models/Timer");
+const CustomError = require("../errors");
 const createResult = async (req, res) => {
   const { username, answers } = req.body;
   if (!username || !answers) {
     return res.status(StatusCodes.BAD_REQUEST).send("Please provide username and answers");
   }
-
+  // check if the timer has expired with 10 seconde delay
+  const timer = await Timer.findOne({});
+  console.log("timer", timer);
+  if (!timer) {
+    console.log("Time is up!");
+    throw new CustomError("Time is up!", StatusCodes.BAD_REQUEST);
+    return;
+  }
   const questions = await Question.find({});
   let score = 0;
 

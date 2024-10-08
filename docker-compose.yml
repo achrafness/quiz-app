@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: quiz-app-server
+    build:
+      context: .
+    environment:
+      - NODE_ENV=development
+      - PORT=3000
+      - MONGO_URI=mongodb+srv://achrafnessighaoui13:9QwZ2NOBPzncmT1J@quiz-cluster.10m1b.mongodb.net/Quiz?retryWrites=true&w=majority&appName=Quiz-cluster
+      - COOKIES_SECRET = QwX*R,-bhqGf:7yP2v
+      - JWT_SECRET=9QwZ2NOBPzncmT1J
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run server
+    depends_on:
+      - mongo
+
+  client:
+    container_name: quiz-app-client
+    build:
+      context: ./client
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    command: npm run dev
+    depends_on:
+      - server
+
+  mongo:
+    container_name: quiz-app-mongo
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

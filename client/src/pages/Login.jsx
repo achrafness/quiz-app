@@ -1,6 +1,6 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useUserStore from '../store/useUserStore'; // Import the user store
+import useUserStore from '../store/useUserStore'; 
 import axiosBaseURL from '../axiosConfig';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -20,8 +20,8 @@ const Login = () => {
                 setLoading(true);
                 const response = await axiosBaseURL.post("/auth/login", {
                     username: inputUsername,
-                    password: inputPassword 
-                },{
+                    password: inputPassword
+                }, {
                     withCredentials: true
                 });
                 if (response.data) {
@@ -36,6 +36,7 @@ const Login = () => {
             } finally {
                 setLoading(false);
             }
+
         } else {
             alert('Please enter a valid username and password');
         }

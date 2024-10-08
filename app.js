@@ -8,9 +8,7 @@ const app = express();
 const http = require("http");
 const socketio = require("socket.io");
 
-// const originUrl = "https://nexus.axeiny.tech";
-const originUrl = "*";
-
+const originUrl = "https://nexus-quiz.onrender.com";
 // const originUrl = "http://localhost:5173";
 const server = http.createServer(app);
 const io = socketio(server, {

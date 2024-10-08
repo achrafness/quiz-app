@@ -34,7 +34,7 @@ const createResult = async (req, res) => {
 };
 
 const getResults = async (req, res) => {
-  const results = await Result.find({}).sort({ score: -1, createdAt: -1 });
+  const results = await Result.find({}).sort({ score: -1, createdAt: 1 });
   res.status(StatusCodes.OK).json({ results });
 };
 

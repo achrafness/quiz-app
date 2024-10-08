@@ -42,10 +42,6 @@ app.use(express.static(path.join(__dirname, "/client/dist")));
 app.use(morgan("tiny"));
 app.use(express.json()); // have acces to json data in req.body
 app.use(cookieParser(process.env.COOKIES_SECRET));
-app.use(rateLimiter({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100
-}))
 app.use(mongoSanitize());
 app.use(xss());
 app.use(

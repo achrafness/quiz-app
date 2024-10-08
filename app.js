@@ -8,12 +8,11 @@ const app = express();
 const http = require("http");
 const socketio = require("socket.io");
 
-const originUrl = "https://nexus-quiz.onrender.com";
 // const originUrl = "http://localhost:5173";
 const server = http.createServer(app);
 const io = socketio(server, {
   cors: {
-    origin: originUrl,
+    origin: true,
   },
 });
 app.set("io", io);
@@ -51,7 +50,7 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(
   cors({
-    origin: originUrl,
+    origin: true,
     credentials: true,
   })
 );

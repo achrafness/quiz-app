@@ -25,7 +25,7 @@ const createResult = async (req, res) => {
   });
 
   const result = await Result.create({ username, score });
-  const results = await Result.find({}).sort({ score: -1, createdAt: -1 });
+  const results = await Result.find({}).sort({ score: -1, createdAt: 1 });
 
   const io = req.app.get("io");
   io.emit("scoreboardUpdate", results);
